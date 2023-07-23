@@ -31,6 +31,7 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
     saveData(data);
     res.status(201).send("Produto registrado com sucesso");
   }
+  res.status(404)
 };
 
 export const updateProduct = (req: Request, res: Response, next: NextFunction) => {
