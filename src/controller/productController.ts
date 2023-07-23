@@ -11,7 +11,8 @@ function saveData(data: Container) {
 }
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json(readData());
+  const data = readData();
+  res.status(200).json(data);
 };
 
 export const getProductById = (req: Request, res: Response, next: NextFunction) => {
@@ -19,19 +20,23 @@ export const getProductById = (req: Request, res: Response, next: NextFunction) 
   const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
   if (index !== -1) {
     res.status(202).json(data.products[index]);
-  } else {
-    res.status(404).send("Registro não encontrado");
+    return;
   }
+  res.status(404).send("Registro não encontrado");
 };
 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
-  if (req.body) {
-    data.products.push(req.body);
+  const newProduct = req.body;
+  newProduct.id = data.products.length > 0 ? Math.max(...data.products.map((product) => product.id)) + 1 : 1;
+  if (req.body !== null) {
+    console.log("here");
+    data.products.push(newProduct);
     saveData(data);
     res.status(201).send("Produto registrado com sucesso");
+    return;
   }
-  res.status(404)
+  res.status(404).send("dados inválidos.");
 };
 
 export const updateProduct = (req: Request, res: Response, next: NextFunction) => {
@@ -41,6 +46,7 @@ export const updateProduct = (req: Request, res: Response, next: NextFunction) =
     data.products[index] = req.body;
     saveData(data);
     res.status(202).json(readData()).send("atualizado com sucesso");
+    return;
   }
 
   res.status(404).send("Registro não encontrado.");
