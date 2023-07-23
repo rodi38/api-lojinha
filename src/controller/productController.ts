@@ -6,6 +6,7 @@ function readData(): Container {
   const data = fs.readFileSync("src/database/db.json", "utf-8");
   return JSON.parse(data);
 }
+
 function saveData(data: Container) {
   fs.writeFileSync("src/database/db.json", JSON.stringify(data));
 }

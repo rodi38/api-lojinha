@@ -1,10 +1,10 @@
 import express from "express";
 import router from "./routes/index";
-import productRouter from "./routes/ProductRoute";
+import productRouter from "./routes/routerProduct";
 import cors from 'cors';
 
 const app = express();
-app.use(cors())
+app.use(cors());
 
 app.use(router);
 app.use(express.json());
