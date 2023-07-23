@@ -13,7 +13,7 @@ function saveData(data: Container) {
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
-  res.status(200).json(data);
+  res.status(200).json(data.products);
 };
 
 export const getProductById = (req: Request, res: Response, next: NextFunction) => {
