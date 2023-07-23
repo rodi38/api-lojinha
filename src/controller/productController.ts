@@ -29,12 +29,12 @@ export const getProductById = (req: Request, res: Response, next: NextFunction) 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
   const newProduct = req.body;
-  newProduct.id = data.products.length > 0 ? Math.max(...data.products.map((product) => product.id)) + 1 : 1;
+  newProduct.id = data.nextId++;
   if (req.body !== null) {
     console.log("here");
     data.products.push(newProduct);
     saveData(data);
-    res.status(201).send("Produto registrado com sucesso");
+    res.status(201).send("Produto registrado com sucesso!");
     return;
   }
   res.status(404).send("dados inválidos.");
