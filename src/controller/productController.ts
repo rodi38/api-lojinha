@@ -62,5 +62,5 @@ export const deleteProduct = (req: Request, res: Response, next: NextFunction) =
     res.status(200).send("deletado com sucesso");
     return;
   }
-  res.status(400).send("Não foi deletado meu chapa.");
+  res.status(404).send("Registro não encontrado.");
 };
