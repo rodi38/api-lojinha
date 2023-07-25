@@ -1,7 +1,9 @@
 # api-lojinha
 
 
-Api feita utilizando express com typescript, para rodar o projeto rode o seguinte comando no terminal: <code>npm run dev</code>
+Api feita utilizando express com typescript,  para rodar o projeto rode os seguintes comandos no terminal respectivamente:
+<br>
+<code>npm i</code><br><code>npm run dev</code>
 
 
 # ROTAS
