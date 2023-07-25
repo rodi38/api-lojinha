@@ -1,16 +1,16 @@
-import { hasEmptyValues } from './../service/service';
+import { hasEmptyValues, readData, saveData } from './../service/service';
 import { Container } from "./../type/Container";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
 
-function readData(): Container {
-  const data = fs.readFileSync("src/database/db.json", "utf-8");
-  return JSON.parse(data);
-}
+// function readData(): Container {
+//   const data = fs.readFileSync("src/database/db.json", "utf-8");
+//   return JSON.parse(data);
+// }
 
-function saveData(data: Container) {
-  fs.writeFileSync("src/database/db.json", JSON.stringify(data));
-}
+// function saveData(data: Container) {
+//   fs.writeFileSync("src/database/db.json", JSON.stringify(data));
+// }
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
