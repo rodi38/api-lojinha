@@ -1,16 +1,5 @@
-import { hasEmptyValues, readData, saveData } from './../service/service';
-import { Container } from "./../type/Container";
+import { hasEmptyValues, readData, saveData } from "./../service/service";
 import { NextFunction, Request, Response } from "express";
-import fs from "fs";
-
-// function readData(): Container {
-//   const data = fs.readFileSync("src/database/db.json", "utf-8");
-//   return JSON.parse(data);
-// }
-
-// function saveData(data: Container) {
-//   fs.writeFileSync("src/database/db.json", JSON.stringify(data));
-// }
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
@@ -48,10 +37,10 @@ export const updateProduct = (req: Request, res: Response, next: NextFunction) =
     if (!hasEmptyValues(req.body)) {
       data.products[index] = req.body;
       saveData(data);
-      res.status(202).json(readData()).send('atualizado com sucesso');
+      res.status(202).json(readData()).send("atualizado com sucesso");
       return;
     }
-    res.status(400).send('Dados inválidos. Todos os atributos devem ser preenchidos.');
+    res.status(400).send("Dados inválidos. Todos os atributos devem ser preenchidos.");
     return;
   }
 
