@@ -35,7 +35,8 @@ export const updateProduct = (req: Request, res: Response, next: NextFunction) =
 
   if (index !== -1) {
     if (!hasEmptyValues(req.body)) {
-      data.products[index] = req.body;
+      Object.assign(data.products[index], req.body);
+      // data.products[index] = req.body;
       saveData(data);
       res.status(202).json(readData()).send("atualizado com sucesso");
       return;
