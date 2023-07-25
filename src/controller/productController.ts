@@ -1,3 +1,4 @@
+import { hasEmptyValues } from './../service/service';
 import { Container } from "./../type/Container";
 import { NextFunction, Request, Response } from "express";
 import fs from "fs";
@@ -30,23 +31,27 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
   const data = readData();
   const newProduct = req.body;
   newProduct.id = data.nextId++;
-  if (req.body !== null) {
-    console.log("here");
+  if (!hasEmptyValues(newProduct)) {
     data.products.push(newProduct);
     saveData(data);
     res.status(201).send("Produto registrado com sucesso!");
     return;
   }
-  res.status(404).send("dados inválidos.");
+  res.status(400).send("dados inválidos. Todos atributos devem ser preenchidos.");
 };
 
 export const updateProduct = (req: Request, res: Response, next: NextFunction) => {
   const data = readData();
   const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
+
   if (index !== -1) {
-    data.products[index] = req.body;
-    saveData(data);
-    res.status(202).json(readData()).send("atualizado com sucesso");
+    if (!hasEmptyValues(req.body)) {
+      data.products[index] = req.body;
+      saveData(data);
+      res.status(202).json(readData()).send('atualizado com sucesso');
+      return;
+    }
+    res.status(400).send('Dados inválidos. Todos os atributos devem ser preenchidos.');
     return;
   }
 
@@ -57,7 +62,6 @@ export const deleteProduct = (req: Request, res: Response, next: NextFunction) =
   const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
   if (index !== -1) {
     data.products.splice(index, 1);
-    console.log(data);
     saveData(data);
     res.status(200).send("deletado com sucesso");
     return;
