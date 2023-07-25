@@ -1,14 +1,16 @@
 # api-lojinha
 
 
-Api feita utilizando express com typescript
-
-para rodar o projeto rode o seguinte comando no terminal: <code>npm run dev</code>
+Api feita utilizando express com typescript, para rodar o projeto rode o seguinte comando no terminal: <code>npm run dev</code>
 
 
-detalhes das rotas:
+# ROTAS
+
+Antes de mais nada, verifique se a api está funcionando com o endereço <code>htts://api-lojinha.onrender.com/health</code>
 
 # ROTAS DE GET
+
+
 
 getAllProducts: <code>https://api-lojinha.onrender.com/products</code>
 
