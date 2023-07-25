@@ -1,60 +1,46 @@
-import { hasEmptyValues, readData, saveData } from "./../service/service";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from 'express';
+import { ProductService } from '../service/productService';
+
+const productService = new ProductService();
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
-  const data = readData();
-  res.status(200).json(data.products);
+  const products = productService.getAllProducts();
+  res.status(200).json(products);
 };
 
 export const getProductById = (req: Request, res: Response, next: NextFunction) => {
-  const data = readData();
-  const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
-  if (index !== -1) {
-    res.status(202).json(data.products[index]);
+  const product = productService.getProductById(parseInt(req.params.id));
+  if (product) {
+    res.status(202).json(product);
     return;
   }
-  res.status(404).send("Registro não encontrado");
+  res.status(404).send('Registro não encontrado');
 };
 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
-  const data = readData();
-  const newProduct = req.body;
-  newProduct.id = data.nextId++;
-  if (!hasEmptyValues(newProduct)) {
-    data.products.push(newProduct);
-    saveData(data);
-    res.status(201).send("Produto registrado com sucesso!");
+  const success = productService.createProduct(req.body);
+  if (success) {
+    res.status(201).send('Produto registrado com sucesso!');
     return;
   }
-  res.status(400).send("dados inválidos. Todos atributos devem ser preenchidos.");
+  res.status(400).send('dados inválidos. Todos atributos devem ser preenchidos.');
 };
 
 export const updateProduct = (req: Request, res: Response, next: NextFunction) => {
-  const data = readData();
-  const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
-
-  if (index !== -1) {
-    if (!hasEmptyValues(req.body)) {
-      Object.assign(data.products[index], req.body);
-      // data.products[index] = req.body;
-      saveData(data);
-      res.status(202).json(readData()).send("atualizado com sucesso");
-      return;
-    }
-    res.status(400).send("Dados inválidos. Todos os atributos devem ser preenchidos.");
+  const success = productService.updateProduct(parseInt(req.params.id), req.body);
+  if (success) {
+    res.status(202).send('atualizado com sucesso');
     return;
   }
 
-  res.status(404).send("Registro não encontrado.");
+  res.status(404).send('Registro não encontrado.');
 };
 export const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
-  const data = readData();
-  const index = data.products.findIndex((product) => product.id === parseInt(req.params.id));
-  if (index !== -1) {
-    data.products.splice(index, 1);
-    saveData(data);
-    res.status(200).send("deletado com sucesso");
+  const success = productService.deleteProduct(parseInt(req.params.id));
+  if (success) {
+    res.status(200).send('deletado com sucesso');
     return;
   }
-  res.status(404).send("Registro não encontrado.");
+  res.status(404).send('Registro não encontrado.');
 };
+
