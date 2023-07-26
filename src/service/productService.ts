@@ -1,4 +1,5 @@
-import { readData, saveData} from '../util/dbUtil'
+import { Product } from '../type/product';
+import { readData, saveData, isProductExists} from '../util/dbUtil'
 import { hasEmptyValues } from '../util/objUtil'
 
 
@@ -17,10 +18,10 @@ export class ProductService {
     return null;
   }
 
-  createProduct(newProduct: any) {
+  createProduct(newProduct: Product) {
     const data = readData();
     newProduct.id = data.nextId++;
-    if (!hasEmptyValues(newProduct)) {
+    if (!hasEmptyValues(newProduct) && !isProductExists(data, newProduct) ) {
       data.products.push(newProduct);
       saveData(data);
       return true;
@@ -28,7 +29,7 @@ export class ProductService {
     return false;
   }
 
-  updateProduct(id: number, updatedProduct: any) {
+  updateProduct(id: number, updatedProduct: Product) {
     const data = readData();
     const index = data.products.findIndex((product) => product.id === id);
 
