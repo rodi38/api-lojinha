@@ -4,7 +4,14 @@ import { ProductService } from '../service/productService';
 const productService = new ProductService();
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
-  const products = productService.getAllProducts();
+  let products = productService.getAllProducts();
+  const search = String(req.query.search);
+
+  if(search) {
+   products =  products.filter((searchedValue)=>{
+      return searchedValue.name.toUpperCase().includes(search.toLowerCase());
+    })
+  }
   res.status(200).json(products);
 };
 
