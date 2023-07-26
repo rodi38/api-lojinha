@@ -12,6 +12,4 @@ export function saveData(data: Container) {
 }
 
 
-export function isProductExists(data: Container, newProduct: Product): boolean {
-  return data.products.some(product => product.name === newProduct.name || product.id === newProduct.id);
-}
+

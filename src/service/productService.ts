@@ -1,6 +1,6 @@
 import { Product } from '../type/product';
-import { readData, saveData, isProductExists} from '../util/dbUtil'
-import { hasEmptyValues } from '../util/objUtil'
+import { readData, saveData} from '../util/dbUtil'
+import { hasEmptyValues, isProductExists } from '../util/objUtil'
 
 
 export class ProductService {
