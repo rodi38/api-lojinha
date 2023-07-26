@@ -28,26 +28,26 @@ export const getProductById = (req: Request, res: Response, next: NextFunction) 
 export const createProduct = (req: Request, res: Response, next: NextFunction) => {
   const success = productService.createProduct(req.body);
   if (success) {
-    res.status(201).send("Produto registrado com sucesso!");
+    res.status(201).json("Produto registrado com sucesso!");
     return;
   }
-  res.status(400).send("dados inválidos. Todos atributos devem ser preenchidos.");
+  res.status(400).json("dados inválidos. Todos atributos devem ser preenchidos.");
 };
 
 export const updateProduct = (req: Request, res: Response, next: NextFunction) => {
   const success = productService.updateProduct(parseInt(req.params.id), req.body);
   if (success) {
-    res.status(202).send("atualizado com sucesso");
+    res.status(200).json({message: "atualizado com sucesso"});
     return;
   }
 
-  res.status(404).send("Registro não encontrado.");
+  res.status(404).json({message: "Registro não encontrado."});
 };
 export const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
   const success = productService.deleteProduct(parseInt(req.params.id));
   if (success) {
-    res.status(200).send("deletado com sucesso");
+    res.status(200).json("deletado com sucesso");
     return;
   }
-  res.status(404).send("Registro não encontrado.");
+  res.status(404).json("Registro não encontrado.");
 };
