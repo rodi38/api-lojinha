@@ -8,7 +8,7 @@ Api feita utilizando express com typescript,  para rodar o projeto rode os segui
 
 # ROTAS
 
-Antes de mais nada, verifique se a api está funcionando com o endereço <code>htts://api-lojinha.onrender.com/health</code>
+Antes de mais nada, verifique se a api está funcionando com o endereço <code>https://api-lojinha.onrender.com/health</code>
 
 # ROTAS DE GET
 
