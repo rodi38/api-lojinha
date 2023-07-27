@@ -5,14 +5,18 @@ const productService = new ProductService();
 
 export const getAllProducts = (req: Request, res: Response, next: NextFunction) => {
   let products = productService.getAllProducts();
-  let search = String(req.query.search);
+  let search = req.query.search ? String(req.query.search) : "";
+  console.log(products)
+  console.log(search)
 
   if (search) {
+    console.log(`passou na verificação`)
     products = products.filter((searchedValue) => {
       return searchedValue.name.toLowerCase().includes(search.toLowerCase());
     });
   }
 
+  console.log(products)
   res.status(200).json(products);
 };
 

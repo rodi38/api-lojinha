@@ -6,6 +6,7 @@ import { hasEmptyValues, isProductExists } from '../util/objUtil'
 export class ProductService {
   getAllProducts() {
     const data = readData();
+
     return data.products;
   }
 
